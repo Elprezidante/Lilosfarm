@@ -1,0 +1,281 @@
+/* 🌌 PAGE BACKGROUND */
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #0aef43;
+}
+
+/* 📦 CARD */
+.card {
+  background: #05d821;
+  padding: 30px;
+  border-radius: 15px;
+  width: 350px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* 🏷️ TITLE */
+.title {
+  color: #facc15;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* 🧾 FORM */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* ✍️ INPUTS */
+.input {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+/* 🚀 BUTTON */
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  background: #25eb88;
+  border: none;
+  border-radius: 50px;
+  color: white;
+  cursor: pointer;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background: #1d4ed8;
+  transform: scale(1.03);
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.text {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.svg {
+  display: flex;
+  align-items: center;
+}
+
+/* 🔔 MESSAGES */
+.success {
+  color: lightgreen;
+  text-align: center;
+}
+
+.error {
+  color: red;
+  text-align: center;
+}
+
+.info {
+  color: lightblue;
+  text-align: center;
+}
+
+/* 🔗 LINK */
+.linkText {
+  color: white;
+  text-align: center;
+  margin-top: 10px;
+}
+/* Center container */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f2f2f2;
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: #aae7bf;
+  padding: 30px;
+  width: 350px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Title */
+.title {
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Labels */
+.flex-column > label {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Input wrapper */
+.inputForm {
+  border: 1.5px solid #ddd;
+  border-radius: 10px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 10px;
+}
+
+.inputForm svg {
+  fill: #555;
+}
+
+/* Input */
+.input {
+  border: none;
+  width: 100%;
+  height: 100%;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.inputForm:focus-within {
+  border-color: #2d79f3;
+}
+
+/* Row */
+.flex-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Links */
+.span {
+  color: #2d79f3;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Submit button */
+.button-submit {
+  background: black;
+  color: white;
+  border: none;
+  height: 45px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.button-submit:hover {
+  background: #06f01a;
+}
+
+/* Text */
+.p {
+  text-align: center;
+  font-size: 14px;
+}
+
+.line {
+  position: relative;
+  text-align: center;
+}
+
+.line::before,
+.line::after {
+  content: "";
+  height: 1px;
+  width: 40%;
+  background: #ddd;
+  position: absolute;
+  top: 50%;
+}
+
+.line::before {
+  left: 0;
+}
+
+.line::after {
+  right: 0;
+}
+
+/* Social buttons */
+.btn {
+  width: 48%;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  border-color: #2d79f3;
+}
+
+/* Messages */
+.text-info { color: #17a2b8; }
+.text-success { color: green; }
+.text-danger { color: red; }
+/* 👁️ eye icon */
+.eye {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* improve spacing inside password input */
+.inputForm {
+  justify-content: space-between;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  /* 🌈 Gradient background */
+  /* background: linear-gradient(135deg, #667eea, #764ba2); */
+}
+.form {
+  backdrop-filter: blur(10px);
+}
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #05d821;
+}
+
+.google-btn svg {
+  width: 20px;
+  height: 20px;
+}
+.btn {
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: #05d821;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(11, 236, 45, 0.874);
+}
