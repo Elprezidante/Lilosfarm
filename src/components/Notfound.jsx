@@ -1,6 +1,6 @@
 import React from 'react'
 import "../css/Notfound.css"
-import Footer from './Footer';
+import Footer from './FarmFooter';
 const Notfound = () => {
   return (
     <div className='Notfound'>

@@ -1,0 +1,134 @@
+/* Container */
+.farm-header {
+  width: 100%;
+  font-family: Arial, sans-serif;
+}
+
+/* Top bar */
+.top-bar {
+  background: #2e7d32;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 20px;
+  font-size: 14px;
+}
+
+.top-bar button {
+  background: #ff9800;
+  border: none;
+  padding: 5px 12px;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Main header */
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  background: #09ca0f;
+}
+
+/* Logo */
+.logo h2 {
+  color: #2e7d32;
+}
+
+/* Search */
+.search-box {
+  display: flex;
+  width: 40%;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+}
+
+.search-box button {
+  padding: 10px;
+  background: #ff9800;
+  border: none;
+  color: white;
+  border-radius: 0 5px 5px 0;
+}
+
+/* Nav */
+.nav-links a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  color: #2e7d32;
+}
+/* Logo container */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Round image */
+.logo-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* 🔥 makes it round */
+  object-fit: cover; /* prevents stretching */
+  border: 2px solid #2e7d32; /* optional nice green border */
+}
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+}
+
+/* Logo section */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Round image */
+.logo-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #2e7d32;
+}
+
+/* Search */
+.search-box {
+  display: flex;
+  width: 40%;
+}
+
+/* Right icons */
+.header-icons {
+  display: flex;
+  gap: 15px;
+}
+/* Logo text */
+.logo h1 {
+  font-size: 32px;            /* 🔥 bigger */
+  font-weight: 800;           /* bold */
+  color: #dce6e0;             /* farm green */
+  margin: 0;
+ 
+}
+
+/* Add a subtle glow on hover ✨ */
+.logo h1:hover {
+  transform: scale(1.05);
+  transition: 0.3s ease;
+}

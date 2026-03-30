@@ -167,3 +167,57 @@
     grid-template-columns: 1fr;
   }
 }
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.search-input {
+  width: 50%;
+  max-width: 400px;
+  padding: 12px 20px;
+  border-radius: 30px;
+  border: 2px solid #4caf50;
+  outline: none;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+/* Glow on focus 🌿 */
+.search-input:focus {
+  border-color: #2e7d32;
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.4);
+}
+/* 🔍 Filters */
+.filters-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.filters-container input,
+.filters-container select {
+  padding: 10px;
+  border-radius: 20px;
+  border: 2px solid #4caf50;
+  outline: none;
+}
+
+/* 🎯 Highlight */
+.highlight {
+  background: yellow;
+  color: black;
+  font-weight: bold;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+/* ❌ No results */
+.no-results {
+  text-align: center;
+  color: red;
+  margin-top: 20px;
+}

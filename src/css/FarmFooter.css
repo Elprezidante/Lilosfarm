@@ -1,0 +1,128 @@
+/* 🌿 MAIN FOOTER */
+.farm-footer {
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+/* 🌾 TOP SECTION */
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 40px;
+  
+  /* 🌄 Farm gradient (sunset over fields vibe) */
+  background: linear-gradient(135deg, #1b5e20, #2e7d32, #4caf50);
+}
+
+/* Brand */
+.footer-brand h2 {
+  font-weight: bold;
+}
+
+/* Newsletter */
+.footer-newsletter {
+  max-width: 400px;
+}
+
+.footer-newsletter p {
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.terms {
+  margin: 10px 0;
+  font-size: 13px;
+}
+
+/* Subscribe */
+.subscribe-box {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.subscribe-box input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+}
+
+.subscribe-box button {
+  padding: 10px 20px;
+  border: none;
+  background: #ffb300;
+  color: #000;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.subscribe-box button:hover {
+  background: #d2a14b;
+}
+
+/* App section */
+.footer-app {
+  text-align: right;
+}
+
+.app-buttons {
+  margin-top: 10px;
+}
+
+.app-btn {
+  display: block;
+  margin-bottom: 8px;
+  padding: 8px 15px;
+  border: none;
+  background: #263238;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.app-btn:hover {
+  background: #37474f;
+}
+
+/* 🌱 BOTTOM SECTION */
+.footer-bottom {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 30px 40px;
+
+  /* darker soil tone 🌑 */
+  background: #1c1c1c;
+}
+
+.footer-bottom h6 {
+  margin-bottom: 10px;
+  color: #ffcc80;
+}
+
+.footer-bottom p {
+  margin: 5px 0;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.footer-bottom p:hover {
+  color: #4caf50;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+  }
+
+  .footer-bottom {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-app {
+    text-align: left;
+  }
+}

@@ -15,11 +15,11 @@
 
 .App-header {
   background-color: #07771c;
-  min-height: 10vh;
+  min-height: 5vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: end;
+  justify-content: end;
   font-size: calc(10px + 2vmin);
   color: white;
 }
@@ -36,42 +36,36 @@
     transform: rotate(360deg);
   }
 }
-.navbar-btn {
-  align-items: center;
-  background-image: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
-  border: 0;
-  border-radius: 8px;
-  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
-  box-sizing: border-box;
-  color: #ffffff;
+
+.nav-buttons {
   display: flex;
-  font-size: 16px;
-  justify-content: center;
-  line-height: 1em;
-  min-width: 120px;
-  padding: 3px;
-  text-decoration: none;
-  user-select: none;
-  cursor: pointer;
-  transition: all 0.3s;
-  margin-left: 8px; /* spacing between buttons */
-}
-
-.navbar-btn span {
-  background-color: rgb(5, 6, 45);
-  padding: 10px 20px;
-  border-radius: 6px;
+  gap: 15px;
+  align-items: center;
+  justify-content: flex-end; /* 🔥 pushes content to right */
   width: 100%;
-  height: 100%;
-  transition: 300ms;
 }
 
-.navbar-btn:hover span {
-  background: none;
+/* Buttons stay the same */
+.nav-btn {
+  padding: 8px 30px;
+  border-radius: 25px;
+  text-decoration: transparent;
+  color: white;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.navbar-btn:active {
-  transform: scale(0.95);
+.nav-btn.home { background: #2e7d32; }
+.nav-btn.add { background: #ff9800; }
+.nav-btn.signin { background: #069130; }
+.nav-btn.signup { background: #f6a40d; }
+
+.nav-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+  opacity: 0.9;
 }
 /* Add to your CSS file */
 
@@ -120,15 +114,15 @@
   text-align: center;
   margin: 20px 0;
 
-  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  /* font-family: 'Poppins', 'Segoe UI', sans-serif;
   font-size: 100px;
-  font-weight: 500;
+  font-weight: 500; */
 
-  color: #e8f5e9; /* 👈 fallback (light green/white) */
+  color: #09ae7a; /* 👈 fallback (light green/white) */
 /* 
   background: linear-gradient(90deg, #2e7d32, #66bb6a, #a5d6a7);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent; */
 
-  text-shadow: 0 2px 8px rgba(0,0,0,0.4); /* 👈 helps against dark navbar */
+  text-shadow: 0 2px 8px rgba(14, 100, 124, 0.4); /* 👈 helps against dark navbar */
 }

@@ -1,0 +1,58 @@
+.hero-slide {
+  height: 80vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dark overlay for readability */
+.hero-slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Content */
+.hero-content {
+  position: relative;
+  text-align: center;
+  color: white;
+  z-index: 2;
+  max-width: 600px;
+}
+
+.hero-content h2 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin: 15px 0;
+}
+
+/* Button */
+.hero-btn {
+  background: #28a745;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 25px;
+  border: none;
+  transition: 0.3s;
+}
+
+.hero-btn:hover {
+  background: #218838;
+  transform: scale(1.05);
+}
+.carousel,
+.carousel-inner,
+.carousel-item,
+.hero-slide {
+  border-radius: 30px;
+  overflow: hidden;
+}
