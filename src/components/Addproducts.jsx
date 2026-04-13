@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
+import {
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer
+} from "recharts";
 import "../css/Addproducts.css";
 
 const Addproducts = () => {
+
   const [product_name, setProductName] = useState("");
   const [product_description, setProductDescription] = useState("");
   const [product_cost, setProductCost] = useState("");
@@ -13,26 +17,41 @@ const Addproducts = () => {
 
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [prevOrders, setPrevOrders] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [accessGranted, setAccessGranted] = useState(false);
   const [passwordError, setPasswordError] = useState("");
 
   const navigate = useNavigate();
-  const ADMIN_PASSWORD = "admin1234";
 
+  // 🔐 LOCK SCROLL
+  useEffect(() => {
+    document.body.style.overflow = accessGranted ? "auto" : "hidden";
+  }, [accessGranted]);
+
+  // 🔄 FETCH DATA
   const fetchData = async () => {
     try {
+      const token = localStorage.getItem("token");
+
       const [res1, res2] = await Promise.all([
-        axios.get("https://elprezidante.alwaysdata.net/api/get_products"),
-        axios.get("https://elprezidante.alwaysdata.net/api/get_orders"),
+        axios.get("https://elprezidante.alwaysdata.net/api/get_products", {
+          headers: { Authorization: `Bearer ${token}` }
+        }),
+        axios.get("https://elprezidante.alwaysdata.net/api/get_orders", {
+          headers: { Authorization: `Bearer ${token}` }
+        }),
       ]);
+
       setProducts(res1.data);
       setOrders(res2.data);
+
     } catch (err) {
       console.log(err);
     }
@@ -42,16 +61,42 @@ const Addproducts = () => {
     if (accessGranted) fetchData();
   }, [accessGranted]);
 
-  const handlePasswordSubmit = (e) => {
+  // 🔔 LIVE ORDER DETECTION
+  useEffect(() => {
+    if (orders.length > prevOrders.length) {
+      alert("🆕 New order received!");
+    }
+    setPrevOrders(orders);
+  }, [orders]);
+
+  // 🔁 AUTO REFRESH
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchData();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // 🔐 LOGIN (JWT)
+  const handlePasswordSubmit = async (e) => {
     e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
+
+    try {
+      const res = await axios.post(
+        "https://your-api-url/api/login",
+        { password }
+      );
+
+      localStorage.setItem("token", res.data.token);
       setAccessGranted(true);
-    } else {
+
+    } catch {
       setPasswordError("❌ Incorrect password");
-      setTimeout(() => navigate("/"), 2000);
     }
   };
 
+  // 📸 IMAGE PREVIEW
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
     setProductPhoto(file);
@@ -61,10 +106,12 @@ const Addproducts = () => {
     if (file) reader.readAsDataURL(file);
   };
 
+  // ➕ ADD PRODUCT
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setSuccess(""); setError("");
+    setSuccess("");
+    setError("");
 
     try {
       const formdata = new FormData();
@@ -85,14 +132,15 @@ const Addproducts = () => {
       setPhotoPreview(null);
 
       fetchData();
+
     } catch (err) {
-      console.log(err);
       setError("❌ Failed to add product");
     }
 
     setLoading(false);
   };
 
+  // ❌ DELETE PRODUCT
   const deleteProduct = async (id) => {
     try {
       await axios.delete(
@@ -104,6 +152,7 @@ const Addproducts = () => {
     }
   };
 
+  // 📦 PLACE ORDER
   const placeOrder = async (product) => {
     try {
       await axios.post(
@@ -113,82 +162,129 @@ const Addproducts = () => {
           product_cost: product.product_cost,
           quantity: 1,
           total: product.product_cost,
-        },
-        { headers: { "Content-Type": "application/json" } }
+        }
       );
       alert("✅ Order placed!");
       fetchData();
-    } catch (err) {
-      console.log(err.response || err.message);
+    } catch {
       alert("❌ Failed to place order");
     }
   };
 
-  // 🔒 PASSWORD POPUP
-  if (!accessGranted) {
-    return (
-      <div className="password-modal-container">
-        <form className="password-modal" onSubmit={handlePasswordSubmit}>
-          <h2>🌾 Farm Admin</h2>
-          <input
-            type="password"
-            placeholder="Enter password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {passwordError && <p className="error-msg">{passwordError}</p>}
-          <button>Enter</button>
-        </form>
-      </div>
-    );
-  }
+  // 📊 CHART DATA
+  const chartData = orders.map((o, i) => ({
+    name: o.product_name,
+    revenue: o.total
+  }));
 
   return (
-    <div className="add-container">
-      <div className="stats-bar">
-        <div className="stat">🌿 Products: {products.length}</div>
-        <div className="stat">📦 Orders: {orders.length}</div>
-        <div className="stat">💰 Revenue: Ksh {orders.reduce((a,b)=>a+b.total,0)}</div>
-      </div>
+    <>
+      {/* 🔒 POPUP */}
+      {!accessGranted && (
+        <div className="popup-overlay">
+          <form className="password-popup" onSubmit={handlePasswordSubmit}>
+            <h2>🌾 Farm Admin</h2>
 
-      <div className="dashboard-row">
-        <div className="card">
-          <h2>Add Product</h2>
-          {loading && <Loader />}
-          {success && <p className="success-msg">{success}</p>}
-          {error && <p className="error-msg">{error}</p>}
+            <div style={{ position: "relative" }}>
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
 
-          <form onSubmit={handleSubmit} className="add-form">
-            <input placeholder="Name" value={product_name} onChange={e => setProductName(e.target.value)} />
-            <textarea placeholder="Description" value={product_description} onChange={e => setProductDescription(e.target.value)} />
-            <input type="number" placeholder="Price" value={product_cost} onChange={e => setProductCost(e.target.value)} />
-            <input type="file" onChange={handlePhotoChange} />
-            {photoPreview && <img src={photoPreview} className="preview-img" />}
-            <button className="btn add-btn">Add</button>
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer"
+                }}
+              >
+                {showPassword ? "🙈" : "👁️"}
+              </span>
+            </div>
+
+            {passwordError && <p className="error-msg">{passwordError}</p>}
+
+            <button>Enter</button>
           </form>
         </div>
+      )}
 
-        <div className="card">
-          <h2>Products</h2>
-          {products.map(p => (
-            <div key={p.id} className="list-item">
-              {p.product_name}
-              <span className="remove-btn" onClick={() => deleteProduct(p.id)}>❌</span>
-              <button onClick={()=>placeOrder(p)}>📦 Place Order</button>
-            </div>
-          ))}
-        </div>
+      {/* 🌿 DASHBOARD */}
+      {accessGranted && (
+        <div className="add-container">
 
-        <div className="card">
-          <h2>Orders</h2>
-          {orders.map(o => (
-            <div key={o.id} className="list-item">
-              {o.product_name} (x{o.quantity}) - Ksh {o.total}
+          <div className="stats-bar">
+            <div className="stat">🌿 Products: {products.length}</div>
+            <div className="stat">📦 Orders: {orders.length}</div>
+            <div className="stat">
+              💰 Revenue: Ksh {orders.reduce((a, b) => a + b.total, 0)}
             </div>
-          ))}
+          </div>
+
+          <div className="dashboard-row">
+
+            {/* ADD PRODUCT */}
+            <div className="card">
+              <h2>Add Product</h2>
+
+              {loading && <Loader />}
+              {success && <p className="success-msg">{success}</p>}
+              {error && <p className="error-msg">{error}</p>}
+
+              <form onSubmit={handleSubmit} className="add-form">
+                <input placeholder="Name" value={product_name} onChange={e => setProductName(e.target.value)} />
+                <textarea placeholder="Description" value={product_description} onChange={e => setProductDescription(e.target.value)} />
+                <input type="number" placeholder="Price" value={product_cost} onChange={e => setProductCost(e.target.value)} />
+                <input type="file" onChange={handlePhotoChange} />
+
+                {photoPreview && <img src={photoPreview} className="preview-img" alt="preview" />}
+
+                <button className="btn add-btn">Add</button>
+              </form>
+            </div>
+
+            {/* PRODUCTS */}
+            <div className="card">
+              <h2>Products</h2>
+
+              {products.map(p => (
+                <div key={p.id} className="list-item">
+                  {p.product_name}
+                  <span className="remove-btn" onClick={() => deleteProduct(p.id)}>❌</span>
+                  <button onClick={() => placeOrder(p)}>📦</button>
+                </div>
+              ))}
+            </div>
+
+            {/* ORDERS + CHART */}
+            <div className="card">
+              <h2>Orders</h2>
+
+              {orders.map(o => (
+                <div key={o.id} className="list-item">
+                  {o.product_name} (x{o.quantity}) - Ksh {o.total}
+                </div>
+              ))}
+
+              <ResponsiveContainer width="100%" height={200}>
+                <BarChart data={chartData}>
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="revenue" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

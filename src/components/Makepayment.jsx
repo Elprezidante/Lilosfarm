@@ -66,10 +66,6 @@ const Makepayments = () => {
 
         <div className="payment-card">
 
-          <button className="back-btn" onClick={() => navigate("/")}>
-            ← Back
-          </button>
-
           <h2 className="payment-title">💳 Lipa Na M-Pesa</h2>
 
           {items.length > 0 ? (
@@ -122,6 +118,14 @@ const Makepayments = () => {
                   {loading ? "Processing..." : "Pay Now"}
                 </button>
               </form>
+
+              {/* 🔙 BACK BUTTON (NOW PERFECTLY PLACED) */}
+              <button
+                className="back-btn"
+                onClick={() => navigate("/")}
+              >
+                ← Back
+              </button>
 
             </>
           ) : (

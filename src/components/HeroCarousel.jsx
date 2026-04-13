@@ -59,12 +59,7 @@ const HeroCarousel = () => {
             <h2>Livestock & Dairy</h2>
             <p>Milk, eggs, poultry & more</p>
 
-            <button
-              className="btn hero-btn"
-              onClick={() => navigate("")}
-            >
-              Order Now
-            </button>
+           
           </div>
         </div>
       </Carousel.Item>
