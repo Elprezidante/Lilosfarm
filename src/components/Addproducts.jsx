@@ -3,11 +3,22 @@ import axios from "axios";
 import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
 import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer
 } from "recharts";
 import "../css/Addproducts.css";
 
 const Addproducts = () => {
+  // 🔐 SIMPLE FRONTEND PASSWORD
+  const ADMIN_PASSWORD = "1234";
+
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [accessGranted, setAccessGranted] = useState(false);
 
   const [product_name, setProductName] = useState("");
   const [product_description, setProductDescription] = useState("");
@@ -23,35 +34,45 @@ const Addproducts = () => {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [accessGranted, setAccessGranted] = useState(false);
-  const [passwordError, setPasswordError] = useState("");
-
   const navigate = useNavigate();
 
-  // 🔐 LOCK SCROLL
+  // 🔓 KEEP LOGIN IF ALREADY OPENED
   useEffect(() => {
-    document.body.style.overflow = accessGranted ? "auto" : "hidden";
-  }, [accessGranted]);
+    if (localStorage.getItem("adminAccess") === "true") {
+      setAccessGranted(true);
+    }
+  }, []);
+
+  // 🔐 LOGIN FUNCTION
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    if (password === ADMIN_PASSWORD) {
+      setAccessGranted(true);
+      localStorage.setItem("adminAccess", "true");
+      setPasswordError("");
+    } else {
+      setPasswordError("❌ Wrong password");
+    }
+  };
+
+  // 🚪 LOGOUT
+  const handleLogout = () => {
+    localStorage.removeItem("adminAccess");
+    setAccessGranted(false);
+    setPassword("");
+  };
 
   // 🔄 FETCH DATA
   const fetchData = async () => {
     try {
-      const token = localStorage.getItem("token");
-
       const [res1, res2] = await Promise.all([
-        axios.get("https://elprezidante.alwaysdata.net/api/get_products", {
-          headers: { Authorization: `Bearer ${token}` }
-        }),
-        axios.get("https://elprezidante.alwaysdata.net/api/get_orders", {
-          headers: { Authorization: `Bearer ${token}` }
-        }),
+        axios.get("https://elprezidante.alwaysdata.net/api/get_products"),
+        axios.get("https://elprezidante.alwaysdata.net/api/get_orders")
       ]);
 
       setProducts(res1.data);
       setOrders(res2.data);
-
     } catch (err) {
       console.log(err);
     }
@@ -63,7 +84,7 @@ const Addproducts = () => {
 
   // 🔔 LIVE ORDER DETECTION
   useEffect(() => {
-    if (orders.length > prevOrders.length) {
+    if (orders.length > prevOrders.length && prevOrders.length > 0) {
       alert("🆕 New order received!");
     }
     setPrevOrders(orders);
@@ -71,30 +92,14 @@ const Addproducts = () => {
 
   // 🔁 AUTO REFRESH
   useEffect(() => {
+    if (!accessGranted) return;
+
     const interval = setInterval(() => {
       fetchData();
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
-
-  // 🔐 LOGIN (JWT)
-  const handlePasswordSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const res = await axios.post(
-        "https://your-api-url/api/login",
-        { password }
-      );
-
-      localStorage.setItem("token", res.data.token);
-      setAccessGranted(true);
-
-    } catch {
-      setPasswordError("❌ Incorrect password");
-    }
-  };
+  }, [accessGranted]);
 
   // 📸 IMAGE PREVIEW
   const handlePhotoChange = (e) => {
@@ -103,6 +108,7 @@ const Addproducts = () => {
 
     const reader = new FileReader();
     reader.onload = () => setPhotoPreview(reader.result);
+
     if (file) reader.readAsDataURL(file);
   };
 
@@ -129,10 +135,10 @@ const Addproducts = () => {
       setProductName("");
       setProductDescription("");
       setProductCost("");
+      setProductPhoto(null);
       setPhotoPreview(null);
 
       fetchData();
-
     } catch (err) {
       setError("❌ Failed to add product");
     }
@@ -161,9 +167,10 @@ const Addproducts = () => {
           product_name: product.product_name,
           product_cost: product.product_cost,
           quantity: 1,
-          total: product.product_cost,
+          total: product.product_cost
         }
       );
+
       alert("✅ Order placed!");
       fetchData();
     } catch {
@@ -172,44 +179,45 @@ const Addproducts = () => {
   };
 
   // 📊 CHART DATA
-  const chartData = orders.map((o, i) => ({
-    name: o.product_name,
-    revenue: o.total
-  }));
+ const groupedData = orders.reduce((acc, order) => {
+  const existing = acc.find(
+    (item) => item.name === order.product_name
+  );
+
+  if (existing) {
+    existing.quantity += Number(order.quantity);
+  } else {
+    acc.push({
+      name: order.product_name,
+      quantity: Number(order.quantity)
+    });
+  }
+
+  return acc;
+}, []);
+
+const chartData = groupedData;
 
   return (
     <>
-      {/* 🔒 POPUP */}
+      {/* 🔒 LOGIN POPUP */}
       {!accessGranted && (
         <div className="popup-overlay">
-          <form className="password-popup" onSubmit={handlePasswordSubmit}>
-            <h2>🌾 Farm Admin</h2>
+          <form className="password-popup" onSubmit={handleLogin}>
+            <h2>🌿 Admin Access</h2>
 
-            <div style={{ position: "relative" }}>
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+            <input
+              type="password"
+              placeholder="Enter Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-              <span
-                onClick={() => setShowPassword(!showPassword)}
-                style={{
-                  position: "absolute",
-                  right: "10px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  cursor: "pointer"
-                }}
-              >
-                {showPassword ? "🙈" : "👁️"}
-              </span>
-            </div>
+            {passwordError && (
+              <p className="error-msg">{passwordError}</p>
+            )}
 
-            {passwordError && <p className="error-msg">{passwordError}</p>}
-
-            <button>Enter</button>
+            <button className="btn add-btn">Enter</button>
           </form>
         </div>
       )}
@@ -217,17 +225,23 @@ const Addproducts = () => {
       {/* 🌿 DASHBOARD */}
       {accessGranted && (
         <div className="add-container">
-
           <div className="stats-bar">
             <div className="stat">🌿 Products: {products.length}</div>
             <div className="stat">📦 Orders: {orders.length}</div>
             <div className="stat">
-              💰 Revenue: Ksh {orders.reduce((a, b) => a + b.total, 0)}
+              💰 Revenue: Ksh{" "}
+              {orders.reduce((a, b) => a + Number(b.total), 0)}
             </div>
+
+            <button
+              onClick={handleLogout}
+              className="btn add-btn"
+            >
+              Logout
+            </button>
           </div>
 
           <div className="dashboard-row">
-
             {/* ADD PRODUCT */}
             <div className="card">
               <h2>Add Product</h2>
@@ -236,15 +250,51 @@ const Addproducts = () => {
               {success && <p className="success-msg">{success}</p>}
               {error && <p className="error-msg">{error}</p>}
 
-              <form onSubmit={handleSubmit} className="add-form">
-                <input placeholder="Name" value={product_name} onChange={e => setProductName(e.target.value)} />
-                <textarea placeholder="Description" value={product_description} onChange={e => setProductDescription(e.target.value)} />
-                <input type="number" placeholder="Price" value={product_cost} onChange={e => setProductCost(e.target.value)} />
-                <input type="file" onChange={handlePhotoChange} />
+              <form
+                onSubmit={handleSubmit}
+                className="add-form"
+              >
+                <input
+                  placeholder="Name"
+                  value={product_name}
+                  onChange={(e) =>
+                    setProductName(e.target.value)
+                  }
+                />
 
-                {photoPreview && <img src={photoPreview} className="preview-img" alt="preview" />}
+                <textarea
+                  placeholder="Description"
+                  value={product_description}
+                  onChange={(e) =>
+                    setProductDescription(e.target.value)
+                  }
+                />
 
-                <button className="btn add-btn">Add</button>
+                <input
+                  type="number"
+                  placeholder="Price"
+                  value={product_cost}
+                  onChange={(e) =>
+                    setProductCost(e.target.value)
+                  }
+                />
+
+                <input
+                  type="file"
+                  onChange={handlePhotoChange}
+                />
+
+                {photoPreview && (
+                  <img
+                    src={photoPreview}
+                    className="preview-img"
+                    alt="preview"
+                  />
+                )}
+
+                <button className="btn add-btn">
+                  Add Product
+                </button>
               </form>
             </div>
 
@@ -252,11 +302,22 @@ const Addproducts = () => {
             <div className="card">
               <h2>Products</h2>
 
-              {products.map(p => (
+              {products.map((p) => (
                 <div key={p.id} className="list-item">
                   {p.product_name}
-                  <span className="remove-btn" onClick={() => deleteProduct(p.id)}>❌</span>
-                  <button onClick={() => placeOrder(p)}>📦</button>
+
+                  <span
+                    className="remove-btn"
+                    onClick={() => deleteProduct(p.id)}
+                  >
+                    ❌
+                  </span>
+
+                  <button
+                    onClick={() => placeOrder(p)}
+                  >
+                    📦
+                  </button>
                 </div>
               ))}
             </div>
@@ -265,22 +326,25 @@ const Addproducts = () => {
             <div className="card">
               <h2>Orders</h2>
 
-              {orders.map(o => (
+              {orders.map((o) => (
                 <div key={o.id} className="list-item">
-                  {o.product_name} (x{o.quantity}) - Ksh {o.total}
+                  {o.product_name} (x{o.quantity}) - Ksh{" "}
+                  {o.total}
                 </div>
               ))}
 
-              <ResponsiveContainer width="100%" height={200}>
+              <ResponsiveContainer
+                width="100%"
+                height={200}
+              >
                 <BarChart data={chartData}>
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
-                  <Bar dataKey="revenue" />
+                <Bar dataKey="quantity" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
-
           </div>
         </div>
       )}

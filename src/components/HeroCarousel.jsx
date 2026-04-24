@@ -21,7 +21,7 @@ const HeroCarousel = () => {
 
             <button
               className="btn hero-btn"
-              onClick={() => navigate("")}
+              onClick={() => navigate("/")}
             >
               Shop Now
             </button>
