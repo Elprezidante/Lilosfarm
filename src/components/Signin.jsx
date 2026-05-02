@@ -7,28 +7,43 @@ import Footer from "./FarmFooter";
 const Signin = () => {
   const navigate = useNavigate();
 
-  // 🌱 Form State
+  // Form State
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // 👁️ UI State
+  // UI State
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
-  // 🚦 Status State
+  // Status State
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
-  // 🚀 Auto Redirect if Already Logged In
+  // Redirect if already logged in
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      navigate("/");
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (token && user) {
+      if (user.role === "admin") {
+        navigate("/addproducts");
+      } else {
+        navigate("/getproducts");
+      }
     }
   }, [navigate]);
 
-  // 🔐 Login Submit
+  // Load remembered email
+  useEffect(() => {
+    const savedEmail = localStorage.getItem("rememberedEmail");
+
+    if (savedEmail) {
+      setEmail(savedEmail);
+      setRememberMe(true);
+    }
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -36,87 +51,89 @@ const Signin = () => {
     setSuccess("");
     setError("");
 
-    // 📧 Basic Validation
     if (!email.includes("@")) {
+      setError("Please enter a valid email address.");
       setLoading(false);
-      setError("Please enter a valid email.");
+      return;
+    }
+
+    if (!password.trim()) {
+      setError("Password is required.");
+      setLoading(false);
       return;
     }
 
     try {
-      const formdata = new FormData();
-      formdata.append("email", email);
-      formdata.append("password", password);
+      const formData = new FormData();
+      formData.append("email", email);
+      formData.append("password", password);
 
       const response = await axios.post(
         "https://elprezidante.alwaysdata.net/api/login",
-        formdata
+        formData
       );
 
-      // 🪙 Save Token + User
-      if (response.data.token) {
-        localStorage.setItem("token", response.data.token);
+      if (!response.data.token || !response.data.user) {
+        setError("Invalid login response from server.");
+        setLoading(false);
+        return;
       }
 
-      if (response.data.user) {
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-      } else {
-        localStorage.setItem("user", JSON.stringify(response.data));
-      }
+      // Save token + user
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
 
-      // 💾 Remember Me
+      // Remember me logic
       if (rememberMe) {
         localStorage.setItem("rememberedEmail", email);
       } else {
         localStorage.removeItem("rememberedEmail");
       }
 
-      setSuccess("Login successful 🎉");
-      setEmail("");
+      setSuccess("Login successful 🎉 Redirecting...");
+
+      // Clear password only
       setPassword("");
 
       setTimeout(() => {
-        navigate("/");
+        if (response.data.user.role === "admin") {
+          navigate("/addproducts");
+        } else {
+          navigate("/getproducts");
+        }
       }, 1000);
-
     } catch (err) {
-      setError("Login failed. Check email or password.");
+      console.log(err);
+      setError("Incorrect email or password.");
       setPassword("");
+
+      setTimeout(() => {
+        navigate("/signup");
+      }, 1500);
     } finally {
       setLoading(false);
     }
   };
 
-  // 🔵 Google Login
   const handleGoogleLogin = () => {
     window.location.href = "https://yourbackend.com/auth/google";
   };
 
-  // 🍎 Apple Login Placeholder
   const handleAppleLogin = () => {
     alert("Apple login coming soon 🍎");
   };
-
-  // 📥 Load Remembered Email
-  useEffect(() => {
-    const savedEmail = localStorage.getItem("rememberedEmail");
-    if (savedEmail) {
-      setEmail(savedEmail);
-      setRememberMe(true);
-    }
-  }, []);
 
   return (
     <>
       <div className="container">
         <form className="form" onSubmit={handleSubmit}>
-          <h2 className="title">Sign In</h2>
+          <h2 className="title">Welcome Back 🌿</h2>
+          <p className="subtitle">Sign in to continue to Lilos Farm</p>
 
-          {loading && <p className="text-info">Logging you in...</p>}
+          {loading && <p className="text-info">Signing you in...</p>}
           {success && <p className="text-success">{success}</p>}
           {error && <p className="text-danger">{error}</p>}
 
-          {/* EMAIL */}
           <div className="flex-column">
             <label>Email</label>
           </div>
@@ -125,14 +142,13 @@ const Signin = () => {
             <input
               type="email"
               className="input"
-              placeholder="Enter your Email"
+              placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
 
-          {/* PASSWORD */}
           <div className="flex-column">
             <label>Password</label>
           </div>
@@ -141,7 +157,7 @@ const Signin = () => {
             <input
               type={showPassword ? "text" : "password"}
               className="input"
-              placeholder="Enter your Password"
+              placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -150,13 +166,13 @@ const Signin = () => {
             <span
               className="eye"
               onClick={() => setShowPassword(!showPassword)}
+              style={{ cursor: "pointer" }}
               title={showPassword ? "Hide Password" : "Show Password"}
             >
               {showPassword ? "🙈" : "👁️"}
             </span>
           </div>
 
-          {/* OPTIONS */}
           <div className="flex-row">
             <div>
               <input
@@ -164,7 +180,7 @@ const Signin = () => {
                 checked={rememberMe}
                 onChange={() => setRememberMe(!rememberMe)}
               />
-              <label> Remember me </label>
+              <label> Remember me</label>
             </div>
 
             <Link to="/forgotpassword" className="span">
@@ -172,7 +188,6 @@ const Signin = () => {
             </Link>
           </div>
 
-          {/* BUTTON */}
           <button
             className="button-submit"
             type="submit"
@@ -182,15 +197,14 @@ const Signin = () => {
           </button>
 
           <p className="p">
-            Don't have an account?{" "}
+            Don’t have an account?{" "}
             <Link to="/signup" className="span">
               Sign Up
             </Link>
           </p>
 
-          <p className="p line">Or With</p>
+          <p className="p line">Or continue with</p>
 
-          {/* SOCIAL LOGIN */}
           <div className="flex-row">
             <button
               type="button"

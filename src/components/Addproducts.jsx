@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loader from "./Loader";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import {
   BarChart,
   Bar,
@@ -34,7 +34,7 @@ const Addproducts = () => {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // 🔓 KEEP LOGIN IF ALREADY OPENED
   useEffect(() => {
@@ -88,7 +88,7 @@ const Addproducts = () => {
       alert("🆕 New order received!");
     }
     setPrevOrders(orders);
-  }, [orders]);
+  }, [orders , prevOrders.length]);
 
   // 🔁 AUTO REFRESH
   useEffect(() => {
