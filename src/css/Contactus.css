@@ -1,0 +1,216 @@
+.contact-page {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.contact-header {
+  position: relative;
+  text-align: center;
+  padding: 60px 20px 120px;
+  background: linear-gradient(135deg, #2d5a1b, #3d7a25, #4a8f2e);
+  color: white;
+  overflow: hidden;
+}
+
+/* 🟢 pill badge */
+.header-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 50px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.header-pill .leaf {
+  font-size: 14px;
+}
+
+/* 🧠 main title */
+.contact-header h1 {
+  font-size: 3rem;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* subtitle */
+.contact-header {
+  position: relative;
+  text-align: center;
+  padding: 60px 20px 160px;
+  background: linear-gradient(135deg, #2d5a1b, #3d7a25, #4a8f2e);
+  color: white;
+  overflow: hidden;
+}
+
+/* pill */
+.header-pill {
+  display: inline-flex;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 50px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+/* title */
+.contact-header h1 {
+  font-size: 3rem;
+  margin: 0;
+  font-weight: 400;
+}
+
+.contact-header p {
+  font-style: italic;
+  opacity: 0.85;
+}
+
+/* 🟩 CARD ROW */
+.header-cards {
+  position: absolute;
+  bottom: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  overflow: hidden;
+  max-width: 900px;
+  width: 90%;
+}
+
+/* individual card */
+.header-card {
+  flex: 1;
+  padding: 25px;
+  text-align: left;
+  border-right: 1px solid #eee;
+}
+
+.header-card:last-child {
+  border-right: none;
+}
+
+.header-card .icon {
+  width: 40px;
+  height: 40px;
+  background: #e8f5d8;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.header-card h4 {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #7a9a5a;
+  margin: 0;
+}
+
+.header-card p {
+  font-weight: bold;
+  color: #2d3a1e;
+  margin: 5px 0;
+}
+
+.header-card span {
+  font-size: 13px;
+  color: #7a8a6a;
+}
+
+/* background shapes */
+.bg-shape {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.s1 { width: 300px; height: 300px; top: -80px; left: -80px; }
+.s2 { width: 200px; height: 200px; top: 20px; right: 100px; }
+.s3 { width: 350px; height: 350px; bottom: -120px; right: -120px; }
+
+
+.contact-container {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* LEFT SIDE */
+.contact-left {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap; /* keeps it responsive */
+}
+
+/* Make cards share space evenly */
+.contact-left .card {
+  flex: 1;
+  min-width: 250px;
+}
+
+/* CARD */
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.green {
+  background: #2d5a1b;
+  color: white;
+}
+
+/* FORM */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 12px;
+  background: #2d5a1b;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* FOOTER */
+.contact-footer {
+  text-align: center;
+  padding: 20px;
+  background: #2d5a1b;
+  color: white;
+}
+.contact-left .card:hover {
+  transform: translateY(-5px) scale(1.02);
+  transition: 0.3s ease;
+}

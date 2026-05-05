@@ -37,26 +37,12 @@
   color: #2e7d32;
 }
 
-/* Search */
-.search-box {
-  display: flex;
-  width: 40%;
-}
 
-.search-box input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px 0 0 5px;
-}
 
-.search-box button {
-  padding: 10px;
-  background: #ff9800;
-  border: none;
-  color: white;
-  border-radius: 0 5px 5px 0;
-}
+
+
+
+
 
 /* Nav */
 .nav-links a {
@@ -113,11 +99,8 @@
   width: 40%;
 }
 
-/* Right icons */
-.header-icons {
-  display: flex;
-  gap: 15px;
-}
+
+
 /* Logo text */
 .logo h1 {
   font-size: 32px;            /* 🔥 bigger */

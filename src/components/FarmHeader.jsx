@@ -11,25 +11,8 @@ function FarmHeader() {
         {/* Logo */}
         <div className="logo">
           <img src="/Images/Logo.png" alt="Lilo's Farm" className="logo-img" />
-          <h1>Lilo's Farm </h1>
+          <h1> ᥕᥱᥣᥴ᥆mᥱ 𝗍᥆ LIL᥆s Farm </h1>
         </div>
-
-        {/* Search Bar */}
-        <div className="search-box">
-          <input
-            type="text"
-            placeholder="Search vegetables, fruits, dairy..."
-          />
-          <button>Search</button>
-        </div>
-
-        {/* Right Section */}
-        <div className="header-icons">
-          <span>👤 Account</span>
-          <span>❓ Help</span>
-          <span>🛒 Cart</span>
-        </div>
-
       </div>
 
     </div>

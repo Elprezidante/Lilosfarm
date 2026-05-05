@@ -8,6 +8,7 @@ import Makepayments from './components/Makepayment';
 import Notfound from './components/Notfound';
 import FarmHeader from './components/FarmHeader';
 import Addproducts from './components/Addproducts';
+import ContactUs from './components/Contact us';
 
 function App() {
   return (
@@ -21,9 +22,9 @@ function App() {
           <nav className="nav-buttons">
             <Link to="/" className="nav-btn home">Home</Link>
             <Link to="/Addproducts" className="nav-btn add">Add products</Link>
-            
             <Link to="/signin" className="nav-btn signin">Sign In</Link>
             <Link to="/signup" className="nav-btn signup">Sign Up</Link>
+            <Link to ="/Contactus" className='nav-btn signup'>Contact us</Link>
           </nav>
         </header>
 
@@ -36,6 +37,8 @@ function App() {
           <Route path='/signin' element={<Signin />} />
           <Route path='/makepayments' element={<Makepayments />} />
           <Route path='*' element={<Notfound />} />
+          <Route path='/Contactus' element={<ContactUs/>}/>
+          
         </Routes>
 
       </div>
