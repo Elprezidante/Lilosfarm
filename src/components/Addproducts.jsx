@@ -204,7 +204,7 @@ const chartData = groupedData;
       {!accessGranted && (
         <div className="popup-overlay">
           <form className="password-popup" onSubmit={handleLogin}>
-            <h2>🌿 Admin Access</h2>
+            <h2>🌿 Welcome Back Admin </h2>
 
             <input
               type="password"

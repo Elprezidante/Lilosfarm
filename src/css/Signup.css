@@ -1,90 +1,81 @@
-/* Page layout */
-.container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* full screen height */
-  font-family: 'Arial', sans-serif;
-  padding: 20px;
-  background-color:green; 
-}
+.signup-page {
+  min-height: 100vh;
+  background-color: #0fe132;
 
-/* Centering wrapper */
-.form-wrapper {
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: auto;
+  padding: 30px;
+  border-radius: 20px;
+  background-image:url("/public/Images/agricultural\ products.jpg");
+  color: #fff;
 }
 
-/* Form box - bigger & roomy */
-.form_area {
-  background: #0aea27; /* green background */
-  padding: 80px 60px; /* big padding */
-  border-radius: 25px;
-  box-shadow: 0px 20px 50px rgba(0,0,0,0.25);
-  width: 100%;
-  max-width: 600px; /* wider */
-  text-align: center;
-  transform: scale(1.05); /* slightly larger for visual impact */
-}
-
-/* Title */
 .title {
-  font-size: 42px;
-  font-weight: 900;
-  margin-bottom: 35px;
-  color: #fff;
+  font-size: 28px;
+  font-weight: bold;
+  color: rgb(25, 218, 31);
 }
 
-/* Labels */
-.sub_title {
-  display: block;
-  text-align: left;
-  margin-bottom: 12px;
-  font-size: 20px;
-  font-weight: 700;
-  color: #fff;
+.message {
+  font-size: 14px;
+  color: #aaa;
 }
 
-/* Inputs */
-.form_style {
+.flex {
+  display: flex;
+  gap: 10px;
+}
+
+.input {
   width: 100%;
-  padding: 18px 20px;
-  margin-bottom: 25px;
-  border-radius: 15px;
-  border: 2px solid #ccc;
-  font-size: 18px;
-  box-sizing: border-box;
-}
-
-/* Button */
-.btn {
-  width: 100%;
-  padding: 18px;
+  padding: 10px 10px 20px;
+  outline: none;
   border: none;
-  background: #0bf31b; /* darker green for contrast */
-  color: white;
-  font-size: 20px;
-  font-weight: 800;
-  border-radius: 15px;
+  border-bottom: 2px solid #aaa;
+  background: transparent;
+  color: #0e0f0e;
+}
+
+label {
+  position: relative;
+}
+
+label span {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  color: #aaa;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.input:focus + span,
+.input:valid + span {
+  top: -10px;
+  font-size: 12px;
+  color: #00ff99;
+}
+
+.submit {
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #00ff99;
+  color: black;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  hover: #0de540;
+    
+  
 }
-
-.btn:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
-}
-
-/* Links */
-.link {
-  color: #1b5e20;
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.link:hover {
-  text-decoration: underline;
+.signin {
+  text-align: center;
+  font-size: 14px;
 }

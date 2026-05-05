@@ -47,84 +47,71 @@ const Signup = () => {
   };
 
   return (
-    <div className="container">
+   <div className="signup-page">
+  <form className="form" onSubmit={handleSubmit}>
+    <p className="title">Register</p>
+    <p className="message">Signup now and get full access to our app.</p>
 
-      <div className="form-wrapper">
+    <h5 className="text-warning">{loading}</h5>
+    <h3 className="text-success">{success}</h3>
+    <h4 className="text-danger">{error}</h4>
 
-        <div className="form_area">
-          <p className="title">SIGN UP</p>
-
-          <h5 className="text-warning">{loading}</h5>
-          <h3 className="text-success">{success}</h3>
-          <h4 className="text-danger">{error}</h4>
-
-          <form onSubmit={handleSubmit}>
-
-            <div className="form_group">
-              <label className="sub_title">Name</label>
-              <input
-                className="form_style"
-                type="text"
-                placeholder="Enter your name"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="form_group">
-              <label className="sub_title">Email</label>
-              <input
-                className="form_style"
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="form_group">
-              <label className="sub_title">Password</label>
-              <input
-                className="form_style"
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="form_group">
-              <label className="sub_title">Phone</label>
-              <input
-                className="form_style"
-                type="text"
-                placeholder="Enter phone number"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                required
-              />
-            </div>
-
-            <button className="btn" type="submit">
-              SIGN UP
-            </button>
-
-            <p>
-              Have an account?{" "}
-              <Link className="link" to="/signin">Login</Link>
-            </p>
-
-          </form>
-        </div>
-
-      </div>
-
-    
-
+    <div className="flex">
+      <label>
+        <input
+          className="input"
+          type="text"
+          required
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <span>Full Name</span>
+      </label>
     </div>
+
+    <label>
+      <input
+        className="input"
+        type="email"
+        required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <span>Email</span>
+    </label>
+
+    <label>
+      <input
+        className="input"
+        type="password"
+        required
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <span>Password</span>
+    </label>
+
+    <label>
+      <input
+        className="input"
+        type="text"
+        required
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
+      />
+      <span>Phone</span>
+    </label>
+
+    <button className="submit" type="submit">
+      Submit
+    </button>
+
+    <p className="signin">
+      Already have an account? <Link to="/signin">Signin</Link>
+    </p>
+  </form>
+</div>
+
   );
 };
 

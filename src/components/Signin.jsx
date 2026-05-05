@@ -47,10 +47,13 @@ const Signin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log("Sending:", email, password); // 🧪 debug
+
     setLoading(true);
     setSuccess("");
     setError("");
 
+    // Validation
     if (!email.includes("@")) {
       setError("Please enter a valid email address.");
       setLoading(false);
@@ -64,26 +67,26 @@ const Signin = () => {
     }
 
     try {
-      const formData = new FormData();
-      formData.append("email", email);
-      formData.append("password", password);
-
+      // ✅ SEND JSON INSTEAD OF FORMDATA
       const response = await axios.post(
         "https://elprezidante.alwaysdata.net/api/login",
-        formData
+        {
+          email: email,
+          password: password,
+        }
       );
 
+      console.log("Response:", response.data); // 🧪 debug
+
       if (!response.data.token || !response.data.user) {
-        setError("Invalid login response from server.");
-        setLoading(false);
-        return;
+        throw new Error("Invalid response from server");
       }
 
-      // Save token + user
+      // Save auth data
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
 
-      // Remember me logic
+      // Remember Me logic
       if (rememberMe) {
         localStorage.setItem("rememberedEmail", email);
       } else {
@@ -92,24 +95,20 @@ const Signin = () => {
 
       setSuccess("Login successful 🎉 Redirecting...");
 
-      // Clear password only
-      setPassword("");
-
+      // ⏳ Clear AFTER navigation (safe timing)
       setTimeout(() => {
-        if (response.data.user.role === "admin") {
-          navigate("/addproducts");
-        } else {
-          navigate("/getproducts");
-        }
+        setEmail("");
+        setPassword("");
+        navigate("/");
       }, 1000);
     } catch (err) {
-      console.log(err);
-      setError("Incorrect email or password.");
-      setPassword("");
+      console.log("ERROR:", err.response || err);
 
-      setTimeout(() => {
-        navigate("/signup");
-      }, 1500);
+      setError(
+        err.response?.data?.message || "Incorrect email or password."
+      );
+
+      setPassword(""); // only clear password on error
     } finally {
       setLoading(false);
     }
@@ -167,7 +166,6 @@ const Signin = () => {
               className="eye"
               onClick={() => setShowPassword(!showPassword)}
               style={{ cursor: "pointer" }}
-              title={showPassword ? "Hide Password" : "Show Password"}
             >
               {showPassword ? "🙈" : "👁️"}
             </span>
