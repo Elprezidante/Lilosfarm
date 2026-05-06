@@ -6,60 +6,40 @@
 body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* ================= APP ================= */
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  overflow-x: hidden; /* 🚫 no sideways scroll */
+  font-family: 'Segoe UI', sans-serif;
 }
 
 /* ================= HEADER ================= */
 .App-header {
   background-color: #07771c;
-  min-height: 8vh;
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 10px 16px;
+  flex-wrap: wrap; /* ✅ allows wrapping on small screens */
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 /* ================= NAV ================= */
 .nav-buttons {
   display: flex;
-  gap: 15px;
+  gap: 12px;
   align-items: center;
-  justify-content: flex-end; /* 🔥 THIS pushes them right */
+  justify-content: flex-end; /* 👉 push to right */
+  flex-wrap: wrap;           /* 👉 prevent overflow */
   width: 100%;
 }
 
 .nav-btn {
-  padding: 8px 20px;
+  padding: 6px 14px;
   border-radius: 25px;
   text-decoration: none;
   color: white;
-  font-family: 'Times New Roman', Times, serif;
   font-weight: 600;
+  font-size: 14px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  white-space: nowrap;
 }
 
 .nav-btn.home { background: #2e7d32; }
@@ -68,48 +48,38 @@ body {
 .nav-btn.signup { background: #f6a40d; }
 
 .nav-btn:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
   opacity: 0.9;
 }
 
-/* ================= GRID ================= */
+/* ================= PRODUCTS ================= */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.2rem;
-  padding: 20px;
+  gap: 1rem;
+  padding: 16px;
 }
 
-/* ================= CARD ================= */
 .product-card {
   display: flex;
   flex-direction: column;
   height: 100%;
   border-radius: 12px;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
-
-/* ================= IMAGE ================= */
 .product_img {
   width: 100%;
   height: 200px;
   object-fit: cover;
 }
 
-/* ================= CARD BODY ================= */
 .card-body {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 15px;
+  padding: 12px;
 }
 
 /* ================= BUTTONS ================= */
@@ -121,94 +91,111 @@ body {
   color: white;
   cursor: pointer;
   margin-top: 8px;
-  transition: 0.3s;
 }
 
 .secondary-btn {
   background: #ff9800;
 }
 
-.farm-btn:hover {
-  opacity: 0.9;
-}
-
 /* ================= TITLE ================= */
 .Welcoming {
-  font-family: 'Poppins', 'Segoe UI', sans-serif;
-  font-size: 28px;
-  font-weight: 500;
+  font-size: 26px;
   text-align: center;
   margin: 20px 0;
   color: #09ae7a;
-  text-shadow: 0 2px 8px rgba(14, 100, 124, 0.4);
 }
 
-/* ================= ANIMATION ================= */
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+/* ================= FOOTER ================= */
+.footer {
+  background: #2e7d32;
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* ✅ responsive */
+  gap: 20px;
 }
 
-/* ================= RESPONSIVE ================= */
+.footer-section {
+  flex: 1 1 200px; /* responsive columns */
+}
 
-/* Tablets */
+.footer h4 {
+  margin-bottom: 10px;
+}
+
+.footer p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ================= TABLET ================= */
 @media (max-width: 992px) {
+
   .App-header {
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
+    flex-direction: row;
+    align-items: center;
   }
 
   .nav-buttons {
-    justify-content: center;
-    flex-wrap: wrap;
+    justify-content: flex-end;
   }
 
   .Welcoming {
-    font-size: 24px;
+    font-size: 22px;
   }
 }
 
-/* Phones */
+/* ================= MOBILE ================= */
 @media (max-width: 600px) {
 
   .App-header {
     flex-direction: column;
     align-items: center;
+    gap: 8px;
   }
 
   .nav-buttons {
-    flex-direction: column;
-    width: 100%;
+    justify-content: center; /* 👉 center on small screens */
   }
 
   .nav-btn {
-    width: 90%;
-    text-align: center;
+    font-size: 12px;
+    padding: 6px 10px;
   }
 
   .product_img {
     height: 180px;
   }
 
-  .Welcoming {
-    font-size: 20px;
-    padding: 0 10px;
+  .products-grid {
+    grid-template-columns: 1fr; /* single column */
   }
 
-  .products-grid {
-    grid-template-columns: 1fr;
+  .footer {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .footer-section {
+    width: 100%;
+  }
+
+  .Welcoming {
+    font-size: 20px;
   }
 }
 
-/* Extra small devices */
+/* ================= SMALL PHONES ================= */
 @media (max-width: 400px) {
-  .Welcoming {
-    font-size: 18px;
-  }
 
   .nav-btn {
-    font-size: 14px;
-    padding: 8px;
+    font-size: 11px;
+    padding: 5px 8px;
+  }
+
+  .Welcoming {
+    font-size: 18px;
   }
 }
