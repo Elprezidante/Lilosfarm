@@ -1,3 +1,16 @@
+/* ================= GLOBAL ================= */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ================= APP ================= */
 .App {
   text-align: center;
 }
@@ -13,14 +26,15 @@
   }
 }
 
+/* ================= HEADER ================= */
 .App-header {
   background-color: #07771c;
-  min-height: 5vh;
+  min-height: 8vh;
   display: flex;
-  flex-direction: column;
-  align-items: end;
-  justify-content: end;
-  font-size: calc(10px + 2vmin);
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
   color: white;
 }
 
@@ -28,28 +42,19 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
+/* ================= NAV ================= */
 .nav-buttons {
   display: flex;
   gap: 15px;
   align-items: center;
-  justify-content: flex-end; /* 🔥 pushes content to right */
+  justify-content: flex-end; /* 🔥 THIS pushes them right */
   width: 100%;
 }
 
-/* Buttons stay the same */
 .nav-btn {
-  padding: 8px 30px;
+  padding: 8px 20px;
   border-radius: 25px;
-  text-decoration: transparent;
+  text-decoration: none;
   color: white;
   font-family: 'Times New Roman', Times, serif;
   font-weight: 600;
@@ -67,62 +72,143 @@
   box-shadow: 0 8px 18px rgba(0,0,0,0.2);
   opacity: 0.9;
 }
-/* Add to your CSS file */
 
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem; /* spacing between cards */
+/* ================= GRID ================= */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.2rem;
+  padding: 20px;
 }
 
+/* ================= CARD ================= */
 .product-card {
   display: flex;
   flex-direction: column;
-  height: 100%; /* make all cards stretch equally */
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* ================= IMAGE ================= */
 .product_img {
-  height: 200px; /* fixed height for images */
-  object-fit: cover; /* ensures images fill the box without distortion */
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
 
+/* ================= CARD BODY ================= */
 .card-body {
-  flex: 1; /* makes the body stretch to fill remaining space */
+  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* keeps buttons at bottom */
+  justify-content: space-between;
+  padding: 15px;
 }
+
+/* ================= BUTTONS ================= */
+.farm-btn {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #2e7d32;
+  color: white;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: 0.3s;
+}
+
+.secondary-btn {
+  background: #ff9800;
+}
+
+.farm-btn:hover {
+  opacity: 0.9;
+}
+
+/* ================= TITLE ================= */
 .Welcoming {
   font-family: 'Poppins', 'Segoe UI', sans-serif;
   font-size: 28px;
   font-weight: 500;
-  font-style: normal;
-
-  /* 🌿 Gradient text */
-  /* background: linear-gradient(90deg, #2e7d32, #66bb6a, #a5d6a7);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent; */
-
-  /* ✨ Soft glow */
-  text-shadow: 0 2px 10px rgba(102, 187, 106, 0.3);
-
-  /* 🧘‍♂️ spacing */
-  letter-spacing: 1px;
-  line-height: 1.5;
-
-  /* 🎯 alignment */
   text-align: center;
   margin: 20px 0;
+  color: #09ae7a;
+  text-shadow: 0 2px 8px rgba(14, 100, 124, 0.4);
+}
 
-  /* font-family: 'Poppins', 'Segoe UI', sans-serif;
-  font-size: 100px;
-  font-weight: 500; */
+/* ================= ANIMATION ================= */
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
 
-  color: #09ae7a; /* 👈 fallback (light green/white) */
-/* 
-  background: linear-gradient(90deg, #2e7d32, #66bb6a, #a5d6a7);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent; */
+/* ================= RESPONSIVE ================= */
 
-  text-shadow: 0 2px 8px rgba(14, 100, 124, 0.4); /* 👈 helps against dark navbar */
+/* Tablets */
+@media (max-width: 992px) {
+  .App-header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .nav-buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .Welcoming {
+    font-size: 24px;
+  }
+}
+
+/* Phones */
+@media (max-width: 600px) {
+
+  .App-header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-btn {
+    width: 90%;
+    text-align: center;
+  }
+
+  .product_img {
+    height: 180px;
+  }
+
+  .Welcoming {
+    font-size: 20px;
+    padding: 0 10px;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 400px) {
+  .Welcoming {
+    font-size: 18px;
+  }
+
+  .nav-btn {
+    font-size: 14px;
+    padding: 8px;
+  }
 }

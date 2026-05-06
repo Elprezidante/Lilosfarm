@@ -178,25 +178,26 @@ const Addproducts = () => {
     }
   };
 
-  // 📊 CHART DATA
- const groupedData = orders.reduce((acc, order) => {
-  const existing = acc.find(
-    (item) => item.name === order.product_name
-  );
+ // 📊 COMPREHENSIVE CHART DATA
+  const chartData = products.map((product) => {
+    // Find all orders for this specific product
+    const productOrders = orders.filter(
+      (order) => order.product_name === product.product_name
+    );
 
-  if (existing) {
-    existing.quantity += Number(order.quantity);
-  } else {
-    acc.push({
-      name: order.product_name,
-      quantity: Number(order.quantity)
-    });
-  }
+    // Calculate total quantity sold and total revenue for this product
+    const totalSold = productOrders.reduce((sum, order) => sum + Number(order.quantity), 0);
+    const totalRevenue = productOrders.reduce((sum, order) => sum + Number(order.total), 0);
 
-  return acc;
-}, []);
-
-const chartData = groupedData;
+    return {
+      name: product.product_name,
+      Sold: totalSold,
+      Revenue: totalRevenue,
+      // If your API doesn't have a "stock" field yet, 
+      // this shows 1 to represent the product exists in your list.
+      InStock: 1 
+    };
+  });
 
   return (
     <>
@@ -341,7 +342,7 @@ const chartData = groupedData;
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
-                <Bar dataKey="quantity" />
+                <Bar dataKey="Sold" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
