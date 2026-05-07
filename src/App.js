@@ -35,7 +35,7 @@ function App() {
       <div className="App">
         <header>
           <FarmHeader />
-
+          
           <nav className="nav-buttons">
             <Link to="/" className="nav-btn home">Home</Link>
             <Link to="/Addproducts" className="nav-btn add">Add products</Link>
@@ -61,6 +61,7 @@ function App() {
           <Route path='/makepayments' element={<Makepayments />} />
           <Route path='/Contactus' element={<ContactUs/>}/>
           <Route path='*' element={<Notfound />} />
+         
         </Routes>
       </div>
     </Router>

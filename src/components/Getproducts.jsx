@@ -396,17 +396,8 @@ const Getproducts = () => {
                     💳 Buy Now
                   </button>
 
-                  {/* PLACE ORDER — requires login, records in admin dashboard */}
-                  <button
-                    className={`farm-btn mt-2 ${isOrdering ? "ordering" : ""}`}
-                    onClick={() => placeOrder(product)}
-                    disabled={isOrdering}
-                  >
-                    {isOrdering
-                      ? <><span className="spin">⏳</span> Placing...</>
-                      : "📦 Place Order"
-                    }
-                  </button>
+                  
+                
                 </div>
               </div>
             </div>

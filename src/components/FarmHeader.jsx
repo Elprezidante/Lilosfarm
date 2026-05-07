@@ -1,21 +1,20 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../css/FarmHeader.css";
 
-function FarmHeader() {
+function FarmHeader({ isLoggedIn, handleLogout }) {
   return (
-    <div>
+    <header className="main-header">
 
-      {/* Main Header */}
-      <div className="main-header">
-
-        {/* Logo */}
-        <div className="logo">
-          <img src="/Images/Logo.png" alt="Lilo's Farm" className="logo-img" />
-          <h1> ᥕᥱᥣᥴ᥆mᥱ 𝗍᥆ LIL᥆s Farm </h1>
-        </div>
+      {/* LEFT SIDE - LOGO */}
+      <div className="logo">
+        <img src="/Images/Logo.png" alt="Lilo's Farm" className="logo-img" />
+        <h1>Welcome to Lilos Farm</h1>
       </div>
 
-    </div>
+     
+
+    </header>
   );
 }
 
