@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
@@ -86,12 +86,12 @@ export default function AdminDashboard() {
   }, [accessGranted]);
 
   // Check for new orders to show notification
-  useEffect(() => {
-    if (orders.length > prevOrderCount && prevOrderCount > 0) {
-      toast("🆕 New order recorded!", "info");
-    }
-    setPrevOrderCount(orders.length);
-  }, [orders.length]);
+ useEffect(() => {
+  if (orders.length > prevOrderCount && prevOrderCount > 0) {
+    toast("🆕 New order recorded!", "info");
+  }
+  setPrevOrderCount(orders.length);
+}, [orders.length, prevOrderCount]);
 
   // ── POS LOGIC ─────────────────────────────────────────────────────────────
   const addToPos = (product) => {
