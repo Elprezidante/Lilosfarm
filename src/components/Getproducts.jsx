@@ -178,7 +178,7 @@ const Getproducts = () => {
     prev.map(i => i._key === key ? { ...i, quantity: i.quantity + delta } : i).filter(i => i.quantity > 0)
   );
   const removeItem = (key) => setCart(prev => prev.filter(i => i._key !== key));
-  const clearCart  = ()    => setCart([]);
+  const _clearCart = () => setCart([]);
 
   const handleCheckout = () => {
     if (!cart.length) return;
@@ -200,7 +200,7 @@ const Getproducts = () => {
 
   const totalQty  = cart.reduce((s, i) => s + i.quantity, 0);
   const totalCost = cart.reduce((s, i) => s + i.product_cost * i.quantity, 0);
-  const fmt = (n) => `Ksh ${Number(n).toLocaleString()}`;
+  // const fmt = (n) => `Ksh ${Number(n).toLocaleString()}`;
 
   // ── RENDER ────────────────────────────────────────────────────────────────
   return (
