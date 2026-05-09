@@ -37,9 +37,9 @@ const contactItems = [
         <circle cx="12" cy="9" r="2.5" fill="white" opacity="0.9"/>
       </svg>
     ),
-    label: "Visit Any of our branches countrywide to join our farm family",
-    value: "Nairobi,kenya",
-    sub: "Find us in major cities across Kenya",
+    label: "Visit Us",
+    value: "123 Harvest Road, Green Valley",
+    sub: "Open Mon–Sat, 7am–6pm",
   },
   {
     icon: (
@@ -48,7 +48,7 @@ const contactItems = [
       </svg>
     ),
     label: "Call Us",
-    value: "+254 118 933 540",
+    value: "+254 712 345 678",
     sub: "We're happy to chat!",
   },
   {
@@ -59,7 +59,7 @@ const contactItems = [
       </svg>
     ),
     label: "Email Us",
-    value: "lilosfarm@gmail.com",
+    value: "hello@lilosfarm.co",
     sub: "We reply within 24 hours",
   },
 ];
