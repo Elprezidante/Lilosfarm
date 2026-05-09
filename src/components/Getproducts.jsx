@@ -217,7 +217,7 @@ const Getproducts = () => {
         /* ── NAVBAR ── */
         .gp-navbar{background:linear-gradient(90deg,#22c55e,#16a34a);padding:12px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:500;box-shadow:0 2px 12px rgba(22,163,74,0.3);}
         .gp-nav-brand{color:white;font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px;}
-        .gp-nav-links{display:flex;align-items:center;gap:6px;}
+    
         .gp-nav-link{color:rgba(255,255,255,0.9);font-size:13px;font-weight:500;padding:6px 14px;border-radius:20px;text-decoration:none;border:none;background:none;cursor:pointer;transition:background 0.15s;font-family:'Segoe UI',sans-serif;}
         .gp-nav-link:hover{background:rgba(255,255,255,0.18);}
         .gp-nav-btn{background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);color:white;font-size:12px;font-weight:600;padding:7px 18px;border-radius:20px;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:'Segoe UI',sans-serif;transition:background 0.15s;}
@@ -503,11 +503,8 @@ const Getproducts = () => {
       <nav className="gp-navbar">
         <div className="gp-nav-brand">🌿 Welcome to Lilos Farm</div>
         <div className="gp-nav-links">
-          <button className="gp-nav-link" style={{color:"white",fontWeight:600}}>Home</button>
-          <button className="gp-nav-link" onClick={() => navigate("/addproducts")}>Add products</button>
-          <button className="gp-nav-link" onClick={() => navigate("/contact")}>Contact us</button>
-          <button className="gp-nav-link" onClick={() => navigate("/login")}>Sign In</button>
-          <button className="gp-nav-link" onClick={() => navigate("/signup")}>Sign Up</button>
+ 
+ 
         </div>
         <button className="gp-nav-btn" onClick={() => setCartOpen(true)}>
           🛒 My Cart {totalQty > 0 && <span className="gp-nav-badge">{totalQty}</span>}
