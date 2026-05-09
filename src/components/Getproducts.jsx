@@ -178,7 +178,7 @@ const Getproducts = () => {
     prev.map(i => i._key === key ? { ...i, quantity: i.quantity + delta } : i).filter(i => i.quantity > 0)
   );
   const removeItem = (key) => setCart(prev => prev.filter(i => i._key !== key));
-  const _clearCart = () => setCart([]);
+ 
 
   const handleCheckout = () => {
     if (!cart.length) return;
