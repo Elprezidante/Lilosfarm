@@ -337,7 +337,8 @@ const Getproducts = () => {
         .gp-success-icon{width:64px;height:64px;border-radius:50%;background:#dcfce7;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
         .spin{display:inline-block;animation:gpSpin 0.8s linear infinite;}
         @keyframes gpSpin{to{transform:rotate(360deg);}}
-      `}</style>
+      `}
+      </style>
 
       {/* TOASTS */}
       <div className="gp-toasts">
